@@ -37,32 +37,53 @@
 //   });
 // });
 
+//USING THE ADD,PATCH, DELETE
+
+// const express = require("express");
+// const app = express();
+// app.use(express.json());
+
+// const PORT = 3000;
+
+// app.listen(PORT, () => {
+//   console.log("listening for port " + PORT);
+// });
+
+// app.get("/", (req, res) => {
+//   res.send("Welcome to Grumb");
+// });
+
+// const addProduct = (req, res) => {
+//   console.log(req.body);
+//   res.status(200).json({
+//     message: `has been added successfully`,
+//   });
+// };
+// app.post("/products", addProduct);
+
+// const updateProduct = (req, res) => {
+//   console.log(req.body.name);
+//   res.status(200).json({
+//     message: `product updated successfully`,
+//   });
+// };
+// app.patch("/products", updateProduct);
+
 const express = require("express");
 const app = express();
+
+//ROUTES
+const productRouter = require("./routes/product");
+const userRouter = require("./routes/user");
+
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = 4003;
 
 app.listen(PORT, () => {
-  console.log("listening for port " + PORT);
+  console.log("Listening on PORT 4003");
 });
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Grumb");
-});
-
-const addProduct = (req, res) => {
-  console.log(req.body);
-  res.status(200).json({
-    message: `has been added successfully`,
-  });
-};
-app.post("/products", addProduct);
-
-const updateProduct = (req, res) => {
-  console.log(req.body.name);
-  res.status(200).json({
-    message: `product updated successfully`,
-  });
-};
-app.patch("/products", updateProduct);
+//ENDPOINTS
+app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
